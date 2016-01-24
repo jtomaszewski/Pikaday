@@ -557,14 +557,15 @@
         addEvent(self.el, 'touchend', self._onMouseDown, true);
         addEvent(self.el, 'change', self._onChange);
 
+        if (opts.container) {
+            opts.container.appendChild(self.el);
+        } else if (opts.bound) {
+            document.body.appendChild(self.el);
+        } else if (opts.field) {
+            opts.field.parentNode.insertBefore(self.el, opts.field.nextSibling);
+        }
+
         if (opts.field) {
-            if (opts.container) {
-                opts.container.appendChild(self.el);
-            } else if (opts.bound) {
-                document.body.appendChild(self.el);
-            } else {
-                opts.field.parentNode.insertBefore(self.el, opts.field.nextSibling);
-            }
             addEvent(opts.field, 'change', self._onInputChange);
 
             if (!opts.defaultDate) {
