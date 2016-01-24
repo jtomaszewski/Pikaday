@@ -285,7 +285,7 @@
             if (opts.showDaysInNextAndPreviousMonths) {
                 arr.push('is-outside-current-month');
             } else {
-                return '<td class="is-empty"></td>';
+                return '<div class="td is-empty"></div>';
             }
         }
         if (opts.isDisabled) {
@@ -306,41 +306,41 @@
         if (opts.isEndRange) {
             arr.push('is-endrange');
         }
-        return '<td data-day="' + opts.day + '" class="' + arr.join(' ') + '">' +
-                 '<button class="pika-button pika-day" type="button" ' +
+        return '<div data-day="' + opts.day + '" class="td ' + arr.join(' ') + '">' +
+                 '<a class="pika-button pika-day" ' +
                     'data-pika-year="' + opts.year + '" data-pika-month="' + opts.month + '" data-pika-day="' + opts.day + '">' +
                         opts.day +
-                 '</button>' +
-               '</td>';
+                 '</a>' +
+               '</div>';
     },
 
     renderWeek = function (d, m, y) {
         // Lifted from http://javascript.about.com/library/blweekyear.htm, lightly modified.
         var onejan = new Date(y, 0, 1),
             weekNum = Math.ceil((((new Date(y, m, d) - onejan) / 86400000) + onejan.getDay()+1)/7);
-        return '<td class="pika-week">' + weekNum + '</td>';
+        return '<div class="td pika-week">' + weekNum + '</div>';
     },
 
     renderRow = function(days, isRTL)
     {
-        return '<tr>' + (isRTL ? days.reverse() : days).join('') + '</tr>';
+        return '<div class="tr">' + (isRTL ? days.reverse() : days).join('') + '</div>';
     },
 
     renderBody = function(rows)
     {
-        return '<tbody>' + rows.join('') + '</tbody>';
+        return '<div class="tbody">' + rows.join('') + '</div>';
     },
 
     renderHead = function(opts)
     {
         var i, arr = [];
         if (opts.showWeekNumber) {
-            arr.push('<th></th>');
+            arr.push('<div class="th"></div>');
         }
         for (i = 0; i < 7; i++) {
-            arr.push('<th scope="col"><abbr title="' + renderDayName(opts, i) + '">' + renderDayName(opts, i, true) + '</abbr></th>');
+            arr.push('<div class="th"><abbr title="' + renderDayName(opts, i) + '">' + renderDayName(opts, i, true) + '</abbr></div>');
         }
-        return '<thead>' + (opts.isRTL ? arr.reverse() : arr).join('') + '</thead>';
+        return '<div class="thead">' + (opts.isRTL ? arr.reverse() : arr).join('') + '</div>';
     },
 
     renderTitle = function(instance, c, year, month, refYear)
@@ -361,7 +361,7 @@
                 ((isMinYear && i < opts.minMonth) || (isMaxYear && i > opts.maxMonth) ? 'disabled' : '') + '>' +
                 opts.i18n.months[i] + '</option>');
         }
-        monthHtml = '<div class="pika-label">' + opts.i18n.months[month] + '<select class="pika-select pika-select-month" tabindex="-1">' + arr.join('') + '</select></div>';
+        monthHtml = '<div class="pika-month pika-label">' + opts.i18n.months[month] + '<select class="pika-select pika-select-month" tabindex="-1">' + arr.join('') + '</select></div>';
 
         if (isArray(opts.yearRange)) {
             i = opts.yearRange[0];
@@ -376,7 +376,7 @@
                 arr.push('<option value="' + i + '"' + (i === year ? ' selected': '') + '>' + (i) + '</option>');
             }
         }
-        yearHtml = '<div class="pika-label">' + year + opts.yearSuffix + '<select class="pika-select pika-select-year" tabindex="-1">' + arr.join('') + '</select></div>';
+        yearHtml = '<div class="pika-year pika-label">' + year + opts.yearSuffix + '<select class="pika-select pika-select-year" tabindex="-1">' + arr.join('') + '</select></div>';
 
         if (opts.showMonthAfterYear) {
             html += yearHtml + monthHtml;
@@ -393,10 +393,10 @@
         }
 
         if (c === 0) {
-            html += '<button class="pika-prev' + (prev ? '' : ' is-disabled') + '" type="button">' + opts.i18n.previousMonth + '</button>';
+            html += '<a class="pika-prev' + (prev ? '' : ' is-disabled') + '">' + opts.i18n.previousMonth + '</a>';
         }
         if (c === (instance._o.numberOfMonths - 1) ) {
-            html += '<button class="pika-next' + (next ? '' : ' is-disabled') + '" type="button">' + opts.i18n.nextMonth + '</button>';
+            html += '<a class="pika-next' + (next ? '' : ' is-disabled') + '">' + opts.i18n.nextMonth + '</a>';
         }
 
         return html += '</div>';
@@ -404,7 +404,7 @@
 
     renderTable = function(opts, data)
     {
-        return '<table cellpadding="0" cellspacing="0" class="pika-table">' + renderHead(opts) + renderBody(data) + '</table>';
+        return '<div class="pika-table">' + renderHead(opts) + renderBody(data) + '</div>';
     },
 
 
@@ -891,7 +891,7 @@
             }
 
             for (var c = 0; c < opts.numberOfMonths; c++) {
-                html += '<div class="pika-lendar">' + renderTitle(this, c, this.calendars[c].year, this.calendars[c].month, this.calendars[0].year) + this.render(this.calendars[c].year, this.calendars[c].month) + '</div>';
+                html += '<div class="pika-lendar"><div class="pika-lendar-inner">' + renderTitle(this, c, this.calendars[c].year, this.calendars[c].month, this.calendars[0].year) + this.render(this.calendars[c].year, this.calendars[c].month) + '</div></div>';
             }
 
             this.el.innerHTML = html;
