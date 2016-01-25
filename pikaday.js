@@ -262,7 +262,9 @@
         onSelect: null,
         onOpen: null,
         onClose: null,
-        onDraw: null
+        onDraw: null,
+
+        _onMouseDown: null
     },
 
 
@@ -416,7 +418,7 @@
         var self = this,
             opts = self.config(options);
 
-        self._onMouseDown = function(e)
+        self._onMouseDown = opts._onMouseDown || function(e)
         {
             if (!self._v) {
                 return;
