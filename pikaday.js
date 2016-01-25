@@ -290,6 +290,9 @@
                 return '<div class="td is-empty"></div>';
             }
         }
+        if (opts.class) {
+            arr.push(opts.class);
+        }
         if (opts.isDisabled) {
             arr.push('is-disabled');
         }
@@ -634,6 +637,8 @@
             opts.disableWeekends = !!opts.disableWeekends;
 
             opts.disableDayFn = (typeof opts.disableDayFn) === 'function' ? opts.disableDayFn : null;
+
+            opts.customDayClassFn = (typeof opts.customDayClassFn) === 'function' ? opts.customDayClassFn : null;
 
             var nom = parseInt(opts.numberOfMonths, 10) || 1;
             opts.numberOfMonths = nom > 4 ? 4 : nom;
@@ -1034,7 +1039,8 @@
                         isStartRange: isStartRange,
                         isEndRange: isEndRange,
                         isInRange: isInRange,
-                        showDaysInNextAndPreviousMonths: opts.showDaysInNextAndPreviousMonths
+                        showDaysInNextAndPreviousMonths: opts.showDaysInNextAndPreviousMonths,
+                        class: (opts.customDayClassFn && opts.customDayClassFn(day))
                     };
 
                 row.push(renderDay(dayConfig));
