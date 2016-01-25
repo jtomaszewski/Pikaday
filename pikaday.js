@@ -842,8 +842,10 @@
         {
             setToStartOfDay(value);
             this._o.minDate = value;
-            this._o.minYear  = value.getFullYear();
-            this._o.minMonth = value.getMonth();
+            if (value) {
+                this._o.minYear  = value.getFullYear();
+                this._o.minMonth = value.getMonth();
+            }
             this.draw();
         },
 
@@ -854,8 +856,10 @@
         {
             setToStartOfDay(value);
             this._o.maxDate = value;
-            this._o.maxYear = value.getFullYear();
-            this._o.maxMonth = value.getMonth();
+            if (value) {
+                this._o.maxYear = value.getFullYear();
+                this._o.maxMonth = value.getMonth();
+            }
             this.draw();
         },
 
