@@ -263,6 +263,7 @@
         onOpen: null,
         onClose: null,
         onDraw: null,
+        onAdjustCalendars: null,
 
         _onMouseDown: null
     },
@@ -794,6 +795,10 @@
                 });
             }
             this.draw();
+
+            if (typeof this._o.onAdjustCalendars === 'function') {
+                this._o.onAdjustCalendars.call(this);
+            }
         },
 
         gotoToday: function()
