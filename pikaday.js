@@ -611,6 +611,7 @@
     /**
      * public Pikaday API
      */
+    Pikaday.defaults = defaults;
     Pikaday.prototype = {
 
 
